@@ -1,0 +1,64 @@
+<!-- 
+ BE MINDFUL OF TRYING TO ALWAYS USE VUE'S DATA BINDING AND OTHER BUILT IN FUNCTIONALITY BEFORE USING YOUR OWN 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.is-loading {
+			background:red;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="root">
+		<h1>{{ reversedMessage }}</h1>
+
+		<h1>All Tasks</h1>
+		<ul>
+			<li v-for="task in tasks" v-text="task.description"></li>
+		</ul>
+
+		<h1>Incompleted Tasks</h1>
+		<ul>
+			<li v-for="task in incompleteTasks" v-text="task.description"></li>
+		</ul>
+	</div>
+	
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+	var input = new Vue({
+		/* for proper data binding we need to encapsulate v-templating inside a parent container and then specif that selector inside of the el property */
+		el: '#root',
+		data: {
+		  message: 'test title',
+		  tasks: [
+   		  { description: 'Homework', completed: false },
+   		  { description: 'Fishing', completed: false },
+   		  { description: 'Groceries', completed: true },
+   		  { description: 'Fast Food', completed: true },
+		  ]
+		},
+		methods: {
+		},
+		/* computed properties are to store operations on data before displaying it to the DOM */
+		computed: {
+			reversedMessage() {
+				return this.message.split('').reverse().join('')
+			},
+  		incompleteTasks() {
+  			return this.tasks.filter(function(task) {
+  				return !task.completed
+  			})
+  		}
+		}
+	})
+</script>
+
+</body>
+</html>
