@@ -17,7 +17,8 @@
 		</ul>
 		<!-- on keyUp bind addMessage method -->
 		<input type="text" id="input" v-model="newName" v-on:keyUp="addMessage">
-		<button v-on:click="addMessage">Add Message</button>
+		<!-- @click === v-on:click -->
+		<button @click="addMessage">Add Message</button>
 	</div>
 	
 <script src="https://unpkg.com/vue"></script>

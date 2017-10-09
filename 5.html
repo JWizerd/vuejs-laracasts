@@ -1,0 +1,53 @@
+<!-- 
+ BE MINDFUL OF TRYING TO ALWAYS USE VUE'S DATA BINDING AND OTHER BUILT IN FUNCTIONALITY BEFORE USING YOUR OWN 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.is-loading {
+			background:red;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="root">
+		<input type="text" v-model="title">
+		<!-- v-bind:title === :title -->
+		<button :title="title" :class="{ 'is-loading': isLoading }" @click="toggleClass">Add Message</button>
+
+		<input type="text" v-model="title">
+		<!-- v-bind:title === :title -->
+		<button :title="title" :disabled="isDisabled" @click="toggleClass ">Add Message</button>
+	</div>
+	
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+	var input = new Vue({
+		/* for proper data binding we need to encapsulate v-templating inside a parent container and then specif that selector inside of the el property */
+		el: '#root',
+		data: {
+		  title: 'test title',
+		  color: 'red',
+		  isLoading: false,
+		  isDisabled: true
+		},
+		methods: {
+			toggleClass() {
+				if (this.isLoading) {
+					this.isLoading = false
+				} else {
+					this.isLoading = true
+				}
+			}
+		}
+	})
+</script>
+
+</body>
+</html>
