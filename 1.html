@@ -5,9 +5,26 @@
 	<title>Document</title>
 </head>
 <body>
-
-	<input type="text" id="input">
+	
+	<div id="root">
+		<!-- 
+			v-model work in collaboration with the data:{} object that in the Vue instance below. At runtime vue binds data to v-model and is smart enough to diff any changes made to that data object up statechange using the virual DOM. This v-model works ONLY with form input
+		-->
+		<input type="text" id="input" v-model="message">
+		<p>The value of input is {{ message }}</p>
+	</div>
 	
 <script src="https://unpkg.com/vue"></script>
+
+<script>
+	var input = new Vue({
+		/* for proper data binding we need to encapsulate v-templating inside a parent container and then specif that selector inside of the el property */
+		el: '#root',
+		data: {
+			message: 'hello world'
+		}
+	})
+</script>
+
 </body>
 </html>
