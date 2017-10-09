@@ -1,0 +1,48 @@
+<!-- 
+ BE MINDFUL OF TRYING TO ALWAYS USE VUE'S DATA BINDING AND OTHER BUILT IN FUNCTIONALITY BEFORE USING YOUR OWN 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div id="root">
+		<ul>
+			<!-- v-for loops handles looping through your data and outputting it all on the screen! -->
+			<li v-for="message in messages" v-text="message"></li>
+		</ul>
+
+		<input type="text" id="input" v-model="newName" v-on:keyUp="addMessage">
+		<button v-on:click="addMessage">Add Message</button>
+	</div>
+	
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+	var input = new Vue({
+		/* for proper data binding we need to encapsulate v-templating inside a parent container and then specif that selector inside of the el property */
+		el: '#root',
+		data: {
+			messages: [
+        "hello there",
+        "my name is Jeremiah",
+        "What is your name?"
+			],
+			newName: ''
+		},
+		/* store all types of methods in here from callbacks for events like click or hover and more! */
+		methods: {
+			addMessage() {
+				this.messages.push(this.newName)
+				this.newName = ''
+			}
+		}
+	})
+</script>
+
+</body>
+</html>
