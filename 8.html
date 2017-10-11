@@ -1,0 +1,53 @@
+<!-- 
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.is-loading {
+			background:red;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="root">
+		<message title="hello world" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias labore voluptatum, assumenda, necessitatibus vero ipsa, officia, fugiat earum explicabo nesciunt voluptatibus temporibus dicta quo rerum a aliquam quis facilis blanditiis."></message>
+	</div>
+	
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+	Vue.component('message', {
+		/* props describes the different data attrs that are accepted by the component */
+		props: ['title', 'body'],
+		/* v-show allows you to toggle visibility of an element based on a condition i.e. IF isVisible is true show description else hide */
+		template: `<div>
+							  <h1>{{ title }}
+							    <button id="close" @click="hideModal">X</button>
+							  </h1>
+							  <p v-show="isVisible">{{ body }}</p>
+							</div>`,
+		data() {
+			return {
+				isVisible: true
+			}
+		},
+		methods: {
+			hideModal() {
+				this.isVisible = false
+			}
+		}
+	})
+
+	new Vue({
+		el: '#root'
+	})
+</script>
+
+</body>
+</html>

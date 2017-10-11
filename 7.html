@@ -1,0 +1,54 @@
+<!-- 
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.is-loading {
+			background:red;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="root">
+		<task-list></task-list>
+	</div>
+	
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+	Vue.component('task-list', {
+		/* 
+		here we are creating a skeleton of how the vue should display the list of tasks to the DOM. Note how this generated from the parent container.  
+		*/
+		template: '<ul><task v-for="task in tasks">{{ task.description }}</task></ul>',
+		data() {
+			return {
+
+				tasks: [
+	   		  { description: 'Homework', completed: false },
+	   		  { description: 'Fishing', completed: false },
+	   		  { description: 'Groceries', completed: true },
+	   		]
+
+			}
+   	}
+	})
+
+	Vue.component('task', {
+		/* in this example <slot></slot> is a vue tag used to pass data from the task-list component above into the child component task without it the data won't render */
+		template: '<li><slot></slot></li>',
+	})
+
+	new Vue({
+		el: '#root'
+	})
+</script>
+
+</body>
+</html>
