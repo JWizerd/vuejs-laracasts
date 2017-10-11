@@ -34,7 +34,7 @@
 	})
 
 	/*
-	$emit() can notify the Vue instance below that we are calling an event from inside our Vue component. In this case we are creating a custom event called @close which sets isVisible back to false this hiding the modal window again. 
+	$emit() can notify the Vue instance below that we are calling an event from inside our Vue component. In this case, when we click the close arrow in the model $emit('close') triggers the @close event in the Vue instance. This custom event sets the state of the modal 'isVisible' back to false thus hiding the modal window again. This is a very decoupled method of communication between Vue components and the Vue instance
 	 */
 
 	new Vue({
