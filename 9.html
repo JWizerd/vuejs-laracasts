@@ -12,6 +12,7 @@
 <body>
 
 	<div id="root" class="container">
+		<!-- close is a custom event that is handled by the modal component using a click event and then notifying the Vue instance using vue's native method $emit() -->
 		<modal v-show="isVisible" @close="isVisible = false"></modal>
 		<button @click="isVisible = true">Show Model</button>
 	</div>
@@ -25,12 +26,17 @@
 			<div class="modal is-active">
 			  <div class="box">
 			    <div class="modal-background"></div>
-			    <div class="modal-content">
-			    </div>
+			    <modal-content>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit iure alias voluptas nisi aperiam magni animi facere soluta totam officiis, optio, dignissimos in dolore possimus quam molestiae quia impedit voluptates.
+			    </modal-content>
 			    <button class="modal-close is-large" aria-label="close" @click="$emit('close')"></button>
 			  </div>
 		  </div>
 		`
+	})
+
+	Vue.component('modal-content', {
+  	template: `<div class="modal-content"><slot></slot></div>`
 	})
 
 	/*

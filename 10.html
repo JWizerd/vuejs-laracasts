@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+    
+    <style>
+        body { padding-top: 40px; }
+    </style>
+</head>
+<body>
+    <div id="root" class="container">
+        <tabs>
+            <tab name="About Us" :selected="true">
+                <h1>Here is the content for the about us tab.</h1>
+            </tab>
+
+            <tab name="About Our Culture">
+                <h1>Here is the content for the about our culture tab.</h1>
+            </tab>
+
+            <tab name="About Our Vision">
+                <h1>Here is the content for the about our vision tab.</h1>
+            </tab>
+        </tabs>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+	Vue.component('tabs', {
+	    template: `
+	        <div>
+	            <div class="tabs">
+	                <ul>
+	                    <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }">
+	                        <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
+	                    </li>
+	                </ul>
+	            </div>
+	            <div class="tabs-details">
+	                <slot></slot>
+	            </div>
+	        </div>
+	    `,
+
+	    data() {
+	    		/* so that we can gain access to other tab siblings we need to store them as an object in data */
+	        return { tabs: [] };
+	    },
+
+	    created() {
+	    		/* upon creation we will store child tab components. see comment above. */
+	        this.tabs = this.$children;
+	    },
+
+	    methods: {
+	    		/* make sure to pass in an argument into your methods if you're passing in an argument via the template like selectTab(tab) above */
+	        selectTab(selectedTab) {
+	        	/* find which tab has the same and set its property isActive */
+	            this.tabs.forEach(tab => {
+	                tab.isActive = (tab.href == selectedTab.href);
+	            });
+	        }
+	    }
+	});
+
+
+	Vue.component('tab', {
+	    template: `
+	        <div v-show="isActive"><slot></slot></div>
+	    `,
+
+	    props: {
+	        name: { required: true },
+	        selected: { default: false }
+	    },
+
+	    data() {
+	        return {
+	            isActive: false
+	        };
+	    },
+
+	    computed: {
+	        href() {
+	            return '#' + this.name.toLowerCase().replace(/ /g, '-');
+	        }
+	    },
+
+	    mounted() {
+	    		/* this sets the first child to active upon load since the first tab in HTML has a :selected true */
+	        this.isActive = this.selected;
+	    },
+	});
+
+	new Vue({
+	    el: '#root'
+	});
+</script>
